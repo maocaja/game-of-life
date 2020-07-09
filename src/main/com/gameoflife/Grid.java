@@ -50,7 +50,7 @@ public class Grid {
         for (int index = 0; index < 8; ++index) {
             int newX = x + dx[index];
             int newY = y + dy[index];
-            if (isValidCell(newX,newY)) {
+            if (isValidCell(newX, newY)) {
                 if (cells[newX][newY] == Cell.LIVE) {
                     counterLiveNeighbours += 1;
                 }
@@ -59,7 +59,7 @@ public class Grid {
         return counterLiveNeighbours;
     }
 
-    private boolean isValidCell(int newX, int newY){
+    private boolean isValidCell(int newX, int newY) {
         return ((newX > 0 && newX < this.columns) && (newY > 0 && newY < this.rows)) ? true : false;
     }
 

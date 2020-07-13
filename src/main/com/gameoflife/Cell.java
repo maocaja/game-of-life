@@ -1,47 +1,41 @@
 package main.com.gameoflife;
 
+import java.util.Arrays;
+
 public enum Cell {
 
-    LIVE {
+    LIVE("*") {
         @Override
         public Cell evaluateCell(int liveNeighbours) {
             return (liveNeighbours == 2 || liveNeighbours == 3) ? LIVE : DEAD;
         }
-
-    }, DEAD {
+    }, DEAD(".") {
         @Override
         public Cell evaluateCell(int liveNeighbours) {
             return liveNeighbours == 3 ? LIVE : DEAD;
         }
     };
 
-    private static final char LIVE_PIXEL = '*';
-    private static final char DEAD_PIXEL = '.';
+    private final String character;
+
+
+    Cell(String character) {
+        this.character = character;
+    }
+
+    @Override
+    public String toString() {
+        return character;
+    }
 
     public abstract Cell evaluateCell(int liveNeighbours);
 
-    public static Cell equalTo(char pixel) {
-        Cell cell;
-        switch (pixel) {
-            case LIVE_PIXEL:
-                cell = Cell.LIVE;
-                break;
-            default:
-                cell = Cell.DEAD;
-        }
-        return cell;
+    public static Cell getCell(String character) {
+        return Arrays.stream(values())
+                .filter(cell -> cell.character.equals(character))
+                .findFirst()
+                .orElseThrow(() ->
+                        new IllegalStateException(String.format("Unsupported type %s.", character)));
     }
 
-    public String toString() {
-        StringBuilder pixel = new StringBuilder();
-        switch (this) {
-            case LIVE:
-                pixel.append(LIVE_PIXEL);
-                break;
-            case DEAD:
-                pixel.append(DEAD_PIXEL);
-                break;
-        }
-        return pixel.toString();
-    }
 }

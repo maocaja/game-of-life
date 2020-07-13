@@ -23,13 +23,18 @@ public class ConwayGame {
         this.board = new Board(seed);
         this.generations = generations;
     }
+
     private void createBoard() {
         this.board = new Board(getSeed());
     }
 
-    public Board iterate(Board currentBoard) {
-        return currentBoard.nextBoard();
+    public Board iterate() {
+        for (int index = 0; index < generations; ++index) {
+            board = board.nextBoard();
+        }
+        return this.board;
     }
+
 
     private void loadInitialConfiguration() {
         try {

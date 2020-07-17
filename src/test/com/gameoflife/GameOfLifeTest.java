@@ -16,55 +16,64 @@ public class GameOfLifeTest {
 
     @Test
     public void allDeadCells_thenNextGenerationAreDead() {
-        List<String> seed = Arrays.asList("...",
+        List<String> config = Arrays.asList("1",
+                                          "...",
                                           "...",
                                           "...");
-        ConwayGame conwayGame = new ConwayGame(seed, 1);
-        assertThat(conwayGame.getBoard().toString(), equalTo(conwayGame.iterate().toString()));
+        ConwayGame conwayGame = new ConwayGame(config);
+        assertThat(conwayGame.getBoard().toString(), equalTo(conwayGame.iterate(conwayGame.getBoard()).toString()));
     }
 
     @Test
     public void oneCellInMiddle_thenCellDeadNextFiveGeneration() {
-        List<String> initialSeed = Arrays.asList("...",
-                                          ".*.",
-                                          "...");
+        List<String> config = Arrays.asList("5",
+                                            "...",
+                                            ".*.",
+                                            "...");
 
-        List<String> resultSeed = Arrays.asList("...",
-                                        "...",
-                                        "...");
-        Board resultBoard = new Board(resultSeed);
-        ConwayGame conwayGame = new ConwayGame(initialSeed, 5);
-        assertThat(resultBoard.toString(), equalTo(conwayGame.iterate().toString()));
+        List<String> resultBoard = Arrays.asList("...",
+                                                "...",
+                                                "...");
+        Board board = new Board(resultBoard);
+        ConwayGame conwayGame = new ConwayGame(config);
+        assertThat(board.toString(), equalTo(conwayGame.iterate(conwayGame.getBoard()).toString()));
     }
 
     @Test
     public void fourLiveCellsInTheMiddle_thenContinueLiveNext10Generation() {
-        List<String> seed = Arrays.asList("....",
-                                          ".**.",
-                                          ".**.",
-                                          "....");
+        List<String> config = Arrays.asList("10",
+                                            "....",
+                                            ".**.",
+                                            ".**.",
+                                            "....");
 
-        ConwayGame conwayGame = new ConwayGame(seed, 10);
-        Board resultBoard = new Board(seed);
-        assertThat(resultBoard.toString(), equalTo(conwayGame.iterate().toString()));
+        List<String> resultBoard = Arrays.asList("....",
+                                                 ".**.",
+                                                 ".**.",
+                                                 "....");
+
+        ConwayGame conwayGame = new ConwayGame(config);
+        Board board = new Board(resultBoard);
+        assertThat(board.toString(), equalTo(conwayGame.iterate(conwayGame.getBoard()).toString()));
     }
 
     @Test
-    public void aDiagonalLifeCells_thenAllCellsDeadNextGeneration() {
-        List<String> initialSeed = Arrays.asList("........",
+    public void aDiagonalLifeCells_thenAfter4GenerationsItIsConstant() {
+        List<String> config = Arrays.asList("4",
+                                                 "........",
                                                  "...*....",
                                                  "...***..",
                                                  "........",
                                                  "........");
 
-        List<String> resultSeed = Arrays.asList("........",
+        List<String> resultBoard = Arrays.asList("........",
                                                 "...**...",
                                                 "..*..*..",
                                                 "...**...",
                                                 "........");
-        ConwayGame conwayGame = new ConwayGame(initialSeed, 4);
-        Board resultBoard = new Board(resultSeed);
-        assertThat(resultBoard.toString(), equalTo(conwayGame.iterate().toString()));
+        ConwayGame conwayGame = new ConwayGame(config);
+        Board board = new Board(resultBoard);
+        assertThat(board.toString(), equalTo(conwayGame.iterate(conwayGame.getBoard()).toString()));
     }
 
 }

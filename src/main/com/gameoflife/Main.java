@@ -20,11 +20,10 @@ public class Main {
     }
 
     public static void main(String[] args) throws FileNotFoundException {
-        ConwayGame conwayGame = new ConwayGame(loadInitialConfiguration());
-        for (int index = 0; index < conwayGame.getGenerations(); ++index) {
-            Board board = conwayGame.getBoard();
-            System.out.println(board.toString());
-            conwayGame.iterate(board);
+        ConwayGame game = new ConwayGame(loadInitialConfiguration());
+        for (int times = 1; times <= game.getGenerations(); ++times) {
+            System.out.println(game.getBoard());
+            game.nextGeneration();
         }
 
     }

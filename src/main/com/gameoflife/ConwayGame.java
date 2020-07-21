@@ -11,10 +11,8 @@ public class ConwayGame {
         createBoard(config);
     }
 
-    public Board iterate(Board board) {
-        for (int index = 0; index < generations; ++index) {
-            this.board = board.nextBoard();
-        }
+    public Board nextGeneration() {
+        this.board = board.nextBoard();
         return this.board;
     }
 
